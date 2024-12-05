@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Employee Management</h1>
+
+    <!-- Add New Employee Form -->
+    <button id="addNewEmployeeButton" class="hidden">Add New Employee</button>
+    <form id="addEmployeeForm" class="hidden">
+      <h2>Add New Employee</h2>
+      <input type="text" id="firstName" placeholder="First Name" required />
+      <input type="text" id="lastName" placeholder="Last Name" required />
+      <input type="text" id="email" placeholder="Email" required />
+      <input type="text" id="jobTitle" placeholder="Job Title" required />
+      <input type="date" id="birthDate" required />
+      <input type="date" id="startDate" required />
+      <input type="file" id="photo" />
+      <label for="addressTypeDropdown">Address Type:</label>
+      <select id="addressTypeDropdown" required>
+        <option value="" disabled selected>Select Address Type</option>
+      </select>
+      <button type="submit" id="addEmployeeForm">Save</button>
+      <button type="button" id="cancelAddEmployee">Cancel</button>
+    </form>
+
+    <!-- Employee Table -->
+    <table id="employeeTable" class="employee-table">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Job Title</th>
+          <th>Birth Date</th>
+          <th>Start Date</th>
+          <th>Photo</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="pagination">
+      <button id="prevPage" disabled>Previous</button>
+      <span id="pageInfo"></span>
+      <button id="nextPage">Next</button>
+    </div>
+  </div>
+  <script src="employes.js"></script>
+</body>
+</html>

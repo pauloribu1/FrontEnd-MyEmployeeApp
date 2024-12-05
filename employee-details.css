@@ -1,0 +1,180 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Employee Details Section */
+  #employeeDetails {
+    margin-bottom: 30px;
+  }
+  
+  #employeeDetails p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  #employeeDetails img {
+    border-radius: 8px;
+    max-width: 150px;
+    margin-top: 15px;
+  }
+  
+  /* Address List */
+  #addressesList {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  #addressesList li {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+  
+  #addressesList li:nth-child(even) {
+    background-color: #e9ecef;
+  }
+  
+  h3 {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  /* Address Form */
+  #addAddressForm {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #addAddressForm input,
+  #addAddressForm select {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  #addAddressForm button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  #addAddressForm button:hover {
+    background-color: #218838;
+  }
+  
+  /* Pagination and Link Styling */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  
+  .pagination button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  #addNewEmployeeButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  #addNewEmployeeButton:hover {
+    background-color: #218838;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    #employeeDetails p {
+      font-size: 14px;
+    }
+  
+    #addressesList li {
+      font-size: 14px;
+    }
+  
+    #addAddressForm input,
+    #addAddressForm select {
+      font-size: 14px;
+    }
+  
+    #addAddressForm button {
+      font-size: 14px;
+    }
+  
+    .pagination button {
+      padding: 8px 12px;
+    }
+  }
+  

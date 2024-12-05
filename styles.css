@@ -1,0 +1,216 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Login/Register Page Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container .container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1, 
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-container input, 
+.login-container select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-container button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+.login-container p {
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* Employee Management Page Styles */
+.employee-management-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.employee-management-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.employee-table th, 
+.employee-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.employee-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.employee-table td img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.employee-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.pagination button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+/* Add New Employee Button */
+#addNewEmployeeButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#addNewEmployeeButton:hover {
+    background-color: #218838;
+}
+
+/* Add/Edit Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input,
+form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+form button {
+    align-self: flex-end;
+    padding: 10px 20px;
+}
+
+/* Hidden Elements */
+.hidden {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .employee-management-container {
+        padding: 15px;
+    }
+
+    .employee-table th,
+    .employee-table td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .pagination button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    #addNewEmployeeButton {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details</title>
+  <link rel="stylesheet" href="employee-details.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Employee Details</h1>
+
+    <!-- Employee Details -->
+    <div id="employeeDetails">
+      <img id="employeePhoto" src="" alt="Employee Photo" width="100" />
+      <h2 id="employeeName"></h2>
+      <p id="employeeEmail"></p>
+      <p id="employeeJobTitle"></p>
+      <p id="employeeBirthDate"></p>
+      <p id="employeeStartDate"></p>
+    </div>
+
+    <!-- Addresses Section -->
+    <div id="addressesSection">
+      <h3>Employee Addresses</h3>
+      <ul id="addressesList"></ul>
+      <button id="addAddressButton">Add Address</button>
+    </div>
+
+    <!-- Add Address Form (only for Admin) -->
+    <div id="addAddressForm" class="hidden">
+      <h3>Enter Address</h3>
+      <textarea id="addressField" placeholder="Enter the address"></textarea>
+      <button id="submitAddress">Save Address</button>
+    </div>
+  </div>
+
+  <script src="employee-details.js"></script>
+</body>
+</html>
