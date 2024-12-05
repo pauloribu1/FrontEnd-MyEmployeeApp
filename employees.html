@@ -14,22 +14,29 @@
     <button id="addNewEmployeeButton" class="hidden">Add New Employee</button>
     <form id="addEmployeeForm" class="hidden">
       <h2>Add New Employee</h2>
-      <input type="text" id="firstName" placeholder="First Name" required />
-      <input type="text" id="lastName" placeholder="Last Name" required />
-      <input type="text" id="email" placeholder="Email" required />
-      <input type="text" id="jobTitle" placeholder="Job Title" required />
-      <input type="date" id="birthDate" required />
-      <input type="date" id="startDate" required />
+      <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+      <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+      <input type="text" id="email" name="email"placeholder="Email" required />
+      <input type="text" id="jobTitle" name="jobTitle" placeholder="Job Title" required />
+      <input type="date" id="birthDate" name="birthDate" required />
+      <input type="date" id="startDate" name="startDate" required />
       <input type="file" id="photo" />
-      <label for="addressTypeDropdown">Address Type:</label>
-      <select id="addressTypeDropdown" required>
-        <option value="" disabled selected>Select Address Type</option>
-      </select>
-      <button type="submit" id="addEmployeeForm">Save</button>
+      
+      <button type="submit">Save</button>
       <button type="button" id="cancelAddEmployee">Cancel</button>
     </form>
 
     <!-- Employee Table -->
+    <div class="table-controls">
+      <label for="sortByDropdown">Sort By:</label>
+      <select id="sortByDropdown">
+        <option value="lastName">Last Name</option>
+        <option value="firstName">First Name</option>
+        <option value="startDate">StartDate</option>
+      </select>
+      <button id="toggleOrderButton">Ascending</button>
+    </div>
+
     <table id="employeeTable" class="employee-table">
       <thead>
         <tr>
@@ -51,6 +58,11 @@
       <button id="nextPage">Next</button>
     </div>
   </div>
+
+  <div class="address-type-link">
+    <a href="admin-dashboard.html" id="manageAddressTypesButton">Manage Address Types</a>
+  </div>
+
   <script src="employes.js"></script>
 </body>
 </html>

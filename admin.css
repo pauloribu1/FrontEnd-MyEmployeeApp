@@ -1,0 +1,159 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #037e1e;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Menu Buttons */
+  #adminMenu button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #037e1e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  #adminMenu button:hover {
+    background-color: #165eaa;
+  }
+  
+  /* Address Type Form */
+  #addAddressTypeForm {
+    margin-bottom: 20px;
+  }
+  
+  #newAddressType {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+  
+  #addAddressTypeForm button {
+    width: 100%;
+    padding: 12px;
+    background-color: #037e1e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #addAddressTypeForm button:hover {
+    background-color: #165eaa;
+  }
+  
+  /* Address Types List Styling */
+  #addressTypesList {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f4f6f8;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  #addressTypesList h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  #addressTypesList div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  #addressTypesList div:hover {
+    background-color: #f1f3f5;
+  }
+  
+  #addressTypesList div:last-child {
+    margin-bottom: 0;
+  }
+  
+  #addressTypesList .address-type-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  #addressTypesList .delete-button {
+    padding: 6px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #addressTypesList .delete-button:hover {
+    background-color: #07680f;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 20px;
+    background-color: #0a6b1f;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #165eaa;
+  }
+  
+  .pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+  

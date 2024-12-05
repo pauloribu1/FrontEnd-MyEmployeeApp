@@ -10,27 +10,68 @@
   <div class="container">
     <h1>Employee Details</h1>
 
-    <!-- Employee Details -->
-    <div id="employeeDetails">
-      <img id="employeePhoto" src="" alt="Employee Photo" width="100" />
-      <h2 id="employeeName"></h2>
-      <p id="employeeEmail"></p>
-      <p id="employeeJobTitle"></p>
-      <p id="employeeBirthDate"></p>
-      <p id="employeeStartDate"></p>
+<!-- Employee Details -->
+<div id="employeeDetails">
+  <img id="employeePhoto" src="" alt="Employee Photo" width="100" />
+    <h2 id="employeeName"></h2>
+
+    <div class="employee-info">
+      <div class="info-item">
+        <label for="employeeFirstName">First Name:</label>
+        <p id="employeeFirstName"></p>
+        <input id="editFirstName" class="hidden" type="text" />
+      </div>
+      <div class="info-item">
+        <label for="employeeLastName">Last Name:</label>
+        <p id="employeeLastName"></p>
+        <input id="editLastName" class="hidden" type="text" />
+      </div>
+      <div class="info-item">
+        <label for="employeeEmail">Email:</label>
+        <p id="employeeEmail"></p>
+        <input id="editEmail" class="hidden" type="email" />
+      </div>
+      <div class="info-item">
+        <label for="employeeJobTitle">Job Title:</label>
+        <p id="employeeJobTitle"></p>
+      </div>
+      <div class="info-item">
+        <label for="employeeBirthDate">Birth Date:</label>
+        <p id="employeeBirthDate"></p>
+        <input id="editBirthDate" class="hidden" type="date" />
+      </div>
+      <div class="info-item">
+        <label for="employeeStartDate">Start Date:</label>
+        <p id="employeeStartDate"></p>
+        <input id="editStartDate" class="hidden" type="date" />
+      </div>
     </div>
 
-    <!-- Addresses Section -->
+    <div id="editButtonContainer" class="hidden">
+        <button id="editButton">Edit</button>
+        <button id="updateButton" class="hidden">Update</button> <!-- Update button for saving changes -->
+    </div>
+  </div>
     <div id="addressesSection">
       <h3>Employee Addresses</h3>
-      <ul id="addressesList"></ul>
+      <table id="addressesTable">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="addressesList"></tbody>
+      </table>
       <button id="addAddressButton">Add Address</button>
     </div>
 
-    <!-- Add Address Form (only for Admin) -->
     <div id="addAddressForm" class="hidden">
       <h3>Enter Address</h3>
       <textarea id="addressField" placeholder="Enter the address"></textarea>
+      <select id="addressTypeDropdown">
+        <option value="" disabled selected>Select Address Type</option>
+      </select>
       <button id="submitAddress">Save Address</button>
     </div>
   </div>

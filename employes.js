@@ -1,164 +1,151 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const token = sessionStorage.getItem('jwtToken');
-    const userRole = sessionStorage.getItem('userRole'); // Ensure this is set during login
-  
+    const userRole = sessionStorage.getItem('userRole');
+    const employeeId = sessionStorage.getItem('employeeId');
+
     if (!token) {
-      alert('You need to log in first.');
-      window.location.href = 'index.html';
-      return;
+        alert('You need to log in first.');
+        window.location.href = 'index.html';
+        return;
     }
-  
-    // Show Add New Employee button for Admins
-    if (userRole === 'ADMIN') {
-      document.getElementById('addNewEmployeeButton').classList.remove('hidden');
+
+    if (userRole !== 'ADMIN') {
+        alert('You must be an admin to access this page.');
+        window.location.href = 'login.html';
     }
-  
-    // Load Employee List
-    async function loadEmployees(page = 0) {
-      try {
-        const response = await fetch('http://localhost:8080/employee', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        if (response.ok) {
-          const data = await response.json();
-          renderEmployees(data); // Call to render employees
-        } else {
-          console.error('Failed to load employees:', await response.text());
+
+    const addNewEmployeeButton = document.getElementById('addNewEmployeeButton');
+    const addEmployeeForm = document.getElementById('addEmployeeForm');
+    const cancelAddEmployeeButton = document.getElementById('cancelAddEmployee');
+    const sortByDropdown = document.getElementById('sortByDropdown');
+    const toggleOrderButton = document.getElementById('toggleOrderButton');
+
+    addNewEmployeeButton.classList.remove('hidden');
+
+    addNewEmployeeButton.addEventListener('click', () => {
+        addEmployeeForm.classList.remove('hidden');
+        addNewEmployeeButton.classList.add('hidden');
+    });
+
+    cancelAddEmployeeButton.addEventListener('click', () => {
+        addEmployeeForm.classList.add('hidden');
+        addNewEmployeeButton.classList.remove('hidden');
+        addEmployeeForm.reset();
+    });
+
+    addEmployeeForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(addEmployeeForm);
+        const queryParams = new URLSearchParams();
+        queryParams.append('firstName', formData.get('firstName'));
+        queryParams.append('lastName', formData.get('lastName'));
+        queryParams.append('email', formData.get('email'));
+        queryParams.append('jobTitle', formData.get('jobTitle'));
+        queryParams.append('birthDate', formData.get('birthDate'));
+        queryParams.append('startDate', formData.get('startDate'));
+        queryParams.append('addressType', formData.get('addressTypeDropdown'));
+
+        const photo = formData.get('photo');
+        if (photo) {
+            queryParams.append('photo', photo.name);
         }
-      } catch (error) {
-        console.error('Error while loading employees:', error);
-      }
-    }
-  
-    function renderEmployees(data) {
-      const tableBody = document.querySelector('#employeeTable tbody');
-      tableBody.innerHTML = ''; // Clear table before rendering
-  
-      data.content.forEach((employee) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${employee.firstName || 'N/A'}</td>
-          <td>${employee.lastName || 'N/A'}</td>
-          <td>${employee.email || 'N/A'}</td>
-          <td>${employee.jobTitle || 'N/A'}</td>
-          <td>${employee.birthDate || 'N/A'}</td>
-          <td>${employee.startDate || 'N/A'}</td>
-          <td>
-            ${
-              employee.photoPath
-                ? `<img src="http://localhost:8080/${employee.photoPath}" alt="Photo" width="50" height="50">`
-                : 'No Photo'
+
+        try {
+            const response = await fetch(`http://localhost:8080/employee/add?${queryParams.toString()}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                alert('Employee added successfully!');
+                addEmployeeForm.classList.add('hidden');
+                addNewEmployeeButton.classList.remove('hidden');
+                loadEmployees();
+            } else {
+                const error = await response.text();
+                console.error('Failed to add employee:', error);
+                alert(`Error: ${error}`);
             }
-          </td>
-          <td>
-                <a href="employee-details.html?email=${employee.email}">View Details</a> <!-- Link to employee details -->
-            </td>
-          <td>
-            ${
-              userRole === 'ADMIN'
-                ? '<button class="edit-btn">Edit</button>'
-                : '<span class="disabled">View Only</span>'
+        } catch (error) {
+            console.error('Error while adding employee:', error);
+        }
+    });
+
+    let currentPage = 0;
+    let currentOrder = 'asc';
+
+    async function loadEmployees(page = 0, sortBy = 'lastName', order = 'asc') {
+        try {
+            const url = `http://localhost:8080/employee?page=${page}&sortBy=${sortBy}&order=${order}`;
+            const response = await fetch(url, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                renderEmployees(data);
+                updatePagination(data);
+            } else {
+                console.error('Failed to load employees:', await response.text());
             }
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-  
-      // Pagination info
-      document.getElementById('pageInfo').textContent = `Page ${data.currentPage + 1} of ${data.totalPages}`;
-      document.getElementById('prevPage').disabled = data.currentPage === 0;
-      document.getElementById('nextPage').disabled = data.currentPage + 1 === data.totalPages;
+        } catch (error) {
+            console.error('Error while loading employees:', error);
+        }
     }
-  
-    // Pagination controls
+
+    function updatePagination(data) {
+        document.getElementById('pageInfo').textContent = `Page ${data.currentPage + 1} of ${data.totalPages}`;
+        document.getElementById('prevPage').disabled = data.currentPage === 0;
+        document.getElementById('nextPage').disabled = data.currentPage + 1 === data.totalPages;
+    }
+
     document.getElementById('prevPage').addEventListener('click', () => {
-      loadEmployees(--currentPage);
-    });
-  
-    document.getElementById('nextPage').addEventListener('click', () => {
-      loadEmployees(++currentPage);
-    });
-  
-    loadEmployees();
-  
-    // Load Address Types for Dropdown (imitando a lógica de carregar Employees)
-    async function loadAddressTypes() {
-      try {
-        const response = await fetch('http://localhost:8080/address-types', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-  
-        if (response.ok) {
-          const addressTypes = await response.json();
-          const dropdown = document.getElementById('addressTypeDropdown');
-          dropdown.innerHTML = '<option value="" disabled selected>Select Address Type</option>';
-          addressTypes.forEach((type) => {
-            const option = document.createElement('option');
-            option.value = type.type;  // Usando o campo 'type' do JSON
-            option.textContent = type.type;  // Exibindo 'type' no dropdown
-            dropdown.appendChild(option);
-          });
-        } else {
-          console.error('Failed to load address types:', await response.text());
+        if (currentPage > 0) {
+            currentPage--;
+            loadEmployees(currentPage, sortByDropdown.value, currentOrder);
         }
-      } catch (error) {
-        console.error('Error fetching address types:', error);
-      }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage++;
+        loadEmployees(currentPage, sortByDropdown.value, currentOrder);
+    });
+
+    sortByDropdown.addEventListener('change', () => {
+        loadEmployees(currentPage, sortByDropdown.value, currentOrder);
+    });
+
+    toggleOrderButton.addEventListener('click', () => {
+        currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+        toggleOrderButton.textContent = currentOrder === 'asc' ? 'Ascending' : 'Descending';
+        loadEmployees(currentPage, sortByDropdown.value, currentOrder);
+    });
+
+    loadEmployees(currentPage);
+
+    function renderEmployees(data) {
+        const tableBody = document.querySelector('#employeeTable tbody');
+        tableBody.innerHTML = '';
+        data.content.forEach((employee) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${employee.firstName || 'N/A'}</td>
+                <td>${employee.lastName || 'N/A'}</td>
+                <td>${employee.email || 'N/A'}</td>
+                <td>${employee.jobTitle || 'N/A'}</td>
+                <td>${employee.birthDate || 'N/A'}</td>
+                <td>${employee.startDate || 'N/A'}</td>
+                <td>
+                    ${employee.photoPath ? `<img src="http://localhost:8080/${employee.photoPath}" alt="Photo" width="50" height="50">` : 'No Photo'}
+                </td>
+                <td>
+                    <a href="employee-details.html?id=${employee.id}">View Details</a>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
     }
-  
-    // Show Add Employee Form (Only for Admins)
-    document.getElementById('addNewEmployeeButton').addEventListener('click', () => {
-      document.getElementById('addEmployeeForm').classList.remove('hidden');
-    });
-  
-    // Close Add Employee Form
-    document.getElementById('cancelAddEmployee').addEventListener('click', () => {
-      document.getElementById('addEmployeeForm').classList.add('hidden');
-    });
-  
-    // Add New Employee
-    document.getElementById('addEmployeeForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-  
-      const formData = new FormData();
-      formData.append('firstName', document.getElementById('firstName').value);
-      formData.append('lastName', document.getElementById('lastName').value);
-      formData.append('email', document.getElementById('email').value);
-      formData.append('jobTitle', document.getElementById('jobTitle').value);
-      formData.append('birthDate', document.getElementById('birthDate').value);
-      formData.append('startDate', document.getElementById('startDate').value);
-      formData.append('photo', document.getElementById('photo').files[0]);
-      formData.append('addressTypeId', document.getElementById('addressTypeDropdown').value);
-  
-      const response = await fetch('http://localhost:8080/employee/add', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-  
-      if (response.ok) {
-        alert('Employee added successfully!');
-        loadEmployees(); // Refresh list
-        document.getElementById('addEmployeeForm').classList.add('hidden');
-      } else {
-        console.error('Failed to add employee:', await response.text());
-      }
-    });
-  
-    document.getElementById('addNewEmployeeButton').addEventListener('click', () => {
-        document.getElementById('addEmployeeForm').classList.remove('hidden');
-        loadAddressTypes(); // Carregar os tipos de endereço ao abrir o formulário
-      });
-    // Load Address Types only for Admin
-    if (userRole === 'ADMIN') {
-      loadAddressTypes();
-    }
-  });
-  
+});

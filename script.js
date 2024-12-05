@@ -1,4 +1,4 @@
-// Gerencia o formulário de login
+// Handles the login form
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -14,26 +14,36 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(`Erro ${response.status}:`, errorText);
-            alert('Erro ao fazer login. Verifique as credenciais.');
+            console.error(`Error ${response.status}:`, errorText);
+            alert('Login failed. Please check your credentials.');
             return;
         }
 
         const data = await response.json();
         const token = data.token;
+        const role = data.role;
+        const employeeId = data.employeeId;
 
-        // Armazena o token no sessionStorage
+        // Store the token in sessionStorage
         sessionStorage.setItem('jwtToken', token);
+        sessionStorage.setItem('userRole', role);
+        sessionStorage.setItem('employeeId', employeeId);
 
-        alert('Login bem-sucedido! Redirecionando para a página principal...');
-        window.location.href = 'employees.html'; // Redireciona para a página principal
+        alert('Login successful! Redirecting to the main page...');
+        if (role === 'USER') {
+            // Redirect the user directly to the employee details page
+            window.location.href = `employee-details.html?id=${employeeId}`;
+        } else if (role === 'ADMIN') {
+            // Redirect the admin to the employee list page
+            window.location.href = 'employees.html';
+        } // Redirect to the main page
     } catch (error) {
-        console.error('Erro na requisição:', error);
-        alert('Erro ao conectar com o servidor.');
+        console.error('Request error:', error);
+        alert('Error connecting to the server.');
     }
 });
 
-// Gerencia o formulário de registro
+// Handles the registration form
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -50,20 +60,20 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(`Erro ${response.status}:`, errorText);
-            alert('Erro ao registrar. Por favor, tente novamente.');
+            console.error(`Error ${response.status}:`, errorText);
+            alert('Registration failed. Please try again.');
             return;
         }
 
-        alert('Usuário registrado com sucesso! Agora você pode fazer login.');
-        document.getElementById('show-login').click(); // Alterna para o formulário de login
+        alert('User registered successfully! You can now log in.');
+        document.getElementById('show-login').click(); // Switch to the login form
     } catch (error) {
-        console.error('Erro na requisição:', error);
-        alert('Erro ao conectar com o servidor.');
+        console.error('Request error:', error);
+        alert('Error connecting to the server.');
     }
 });
 
-// Alterna entre os formulários de login e registro
+// Switch between login and registration forms
 document.getElementById('show-register').addEventListener('click', () => {
     document.getElementById('login-form').classList.add('hidden');
     document.getElementById('register-form').classList.remove('hidden');

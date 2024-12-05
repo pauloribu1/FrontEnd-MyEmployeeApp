@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Add Address Type Section -->
+    <div id="addressTypesSection">
+      <h2>Manage Address Types</h2>
+
+      <!-- Form to Add a New Address Type -->
+      <form id="addAddressTypeForm">
+        <input type="text" id="newAddressType" placeholder="New Address Type" required />
+        <button type="submit">Add Address Type</button>
+      </form>
+
+      <!-- List of Existing Address Types -->
+      <div id="addressTypesList"></div>
+    </div>
+  </div>
+
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>
